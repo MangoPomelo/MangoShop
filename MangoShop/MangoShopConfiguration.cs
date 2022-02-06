@@ -1,4 +1,4 @@
-using Rocket.API;
+﻿using Rocket.API;
 using MangoShop.Models;
 
 namespace MangoShop
@@ -11,16 +11,12 @@ namespace MangoShop
         {
             LoadMessage = "This is mango shop plugin!";
             // Load default configuration for products
-            Products = GetDefaultProducts();
-        }
-        private Product[] GetDefaultProducts()
-        {
-            return new Product[]
+            Products = new Product[]
             {
-                new Product(){ Name = "Eaglefire", Price = 0, ItemId = 4 },
-                new Product(){ Name = "Timberwolf", Price = 0, ItemId = 18 },
-                new Product(){ Name = "1911", Price = 0, ItemId = 97 },
-                new Product(){ Name = "Cobra", Price = 0, ItemId = 99 }
+                new Product(){ ID = 4, Price = 0 },
+                new Product(){ ID = 18, Price = 0 },
+                new Product(){ ID = 97, Price = 0 },
+                new Product(){ ID = 99, Price = 0 }
             };
         }
     }
