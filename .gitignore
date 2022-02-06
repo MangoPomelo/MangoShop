@@ -1,0 +1,3 @@
+# folders that appear after compiling
+**/obj/
+**/bin/
