@@ -6,6 +6,7 @@ using System.Linq;
 using System.Collections.Generic;
 using MangoShop.Models;
 using MangoShop.Utilities;
+using MangoShop.Decoraters;
 
 namespace MangoShop.Commands
 {
@@ -21,44 +22,51 @@ namespace MangoShop.Commands
         {
             // Verify if the given command is valid, prompt an hint if not
             Argument argument = this._tryParseCommand(command);
-            if (argument == null) {
+            if (argument == null)
+            {
                 UnturnedChat.Say(caller, "Given command is invalid!");
                 return;
             }
 
-            // DEBUG:
-            if (MangoShop.Instance == null) {
-                UnturnedChat.Say(caller, "MangoShop.Instance is null");
-            } else if (MangoShop.Instance.Configuration == null) {
-                UnturnedChat.Say(caller, "MangoShop.Instance.Configuration is null");
-            }
-
             // Select the product and verify if it exists
             Product product = this._tryFindProduct(argument.GetID());
-            if (product == null) {
-                UnturnedChat.Say(caller, "Product not found");
+            DecoratedProduct decoratedProduct = Dispatcher.dispatch(product);
+            if (decoratedProduct == null)
+            {
+                UnturnedChat.Say(caller, "Product not found!");
                 return;
             }
 
             // Buy the product
             UnturnedPlayer player = (UnturnedPlayer)caller;
-            player.GiveItem(product.ID, argument.GetAmount());
-            UnturnedChat.Say(caller, $"You received {product.ID}!");
-
+            byte amount = argument.GetAmount();
+            bool isTransactionSuccessful = decoratedProduct.PurchasedBy(player, amount);
+            if (!isTransactionSuccessful)
+            {
+                UnturnedChat.Say(caller, $"Transaction failed!");
+                return;
+            }
+            UnturnedChat.Say(caller, $"You received {product.ID} x {amount}!");
         }
         private Argument _tryParseCommand(string[] command) {
-            try {
+            try 
+            {
                 Argument argument = new Argument(command);
                 return argument;
-            } catch (ArgumentException) {
+            }
+            catch (ArgumentException)
+            {
                 return null;
             }
         }
         private Product _tryFindProduct(ushort productID) {
-            try {
-                Product found = MangoShop.Instance.Configuration.Instance.Products.First(p => p.ID == productID);
+            try 
+            {
+                Product found = MangoShop.Instance.Configuration.Instance.OnSaleProducts.First(p => p.ID == productID);
                 return found;
-            } catch (ArgumentNullException) {
+            } 
+            catch (Exception ex) when (ex is InvalidOperationException || ex is ArgumentNullException)
+            {
                 return null;
             }
         }

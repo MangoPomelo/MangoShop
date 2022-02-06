@@ -55,10 +55,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\BuyCommand.cs" />
+    <Compile Include="Decorators\*.cs" />
     <Compile Include="MangoShop.cs" />
     <Compile Include="MangoShopConfiguration.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Utilities\Argument.cs" />
+    <Compile Include="Utilities\Dispatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
