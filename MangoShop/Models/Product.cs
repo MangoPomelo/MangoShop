@@ -4,6 +4,7 @@ namespace MangoShop.Models
     {
         public const string NULL_TYPE = "Null";
         public const string DEFAULT_TYPE = "Default";
+        public const string BANNED_TYPE = "Banned";
         public const string ITEM_TYPE = "Item";
         public const string LOTTERY_TYPE = "Lottery";
 

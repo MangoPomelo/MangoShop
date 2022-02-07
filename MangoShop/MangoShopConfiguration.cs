@@ -16,6 +16,11 @@ namespace MangoShop
             DefaultProduct = new Product(){ Type = Product.DEFAULT_TYPE, Name = Product.DEFAULT_TYPE, Price = 100 };
             OnSaleProducts = new Product[]
             {
+                new Product(){ Type = Product.BANNED_TYPE, Name = "1099", Price = 0 }, // 4 Seater Makeshift Vehicle
+				new Product(){ Type = Product.BANNED_TYPE, Name = "1111", Price = 0 }, // 6 Seater Makeshift Vehicle
+				new Product(){ Type = Product.BANNED_TYPE, Name = "1112", Price = 0 }, // 1 Seater Makeshift Vehicle
+				new Product(){ Type = Product.BANNED_TYPE, Name = "2021", Price = 0 }, // Raft Makeshift Vehicle
+				new Product(){ Type = Product.BANNED_TYPE, Name = "2022", Price = 0 }, // Gyro Makeshift Vehicle
                 new Product(){ Type = Product.ITEM_TYPE, Name = "17", Price = 100 }, // Military Drum
                 new Product(){ Type = Product.ITEM_TYPE, Name = "43", Price = 50 }, // Low Caliber Military Ammunition Crate
                 new Product(){ Type = Product.ITEM_TYPE, Name = "44", Price = 50 }, // Low Caliber Civilian Ammunition Box
