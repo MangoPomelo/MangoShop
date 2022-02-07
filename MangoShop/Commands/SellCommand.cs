@@ -1,4 +1,4 @@
-﻿using Rocket.API;
+using Rocket.API;
 using Rocket.Unturned.Chat;
 using Rocket.Unturned.Player;
 using System;
@@ -10,12 +10,12 @@ using MangoShop.Decoraters;
 
 namespace MangoShop.Commands
 {
-    public class BuyCommand : IRocketCommand
+    public class SellCommand : IRocketCommand
     {
         public AllowedCaller AllowedCaller => AllowedCaller.Player;
-        public string Name => "buy";
+        public string Name => "sell";
         public string Help => "";
-        public string Syntax => "<buy>";
+        public string Syntax => "<sell>";
         public List<string> Aliases => new List<string>();
         public List<string> Permissions => new List<string>();
 
@@ -49,13 +49,13 @@ namespace MangoShop.Commands
             // Decorate the product
             DecoratedProduct decoratedProduct = Dispatcher.dispatch(product);
 
-            // Buy the product
+            // Sell the product
             UnturnedPlayer player = (UnturnedPlayer)caller;
             byte amount = argument.Amount;
             try
             {
-                decoratedProduct.PurchasedBy(player, amount);
-                UnturnedChat.Say(caller, $"You received {product.Name} x {amount}!");
+                decoratedProduct.SoldBy(player, amount);
+                UnturnedChat.Say(caller, $"You received {product.Price * amount} experience!");
             }
             catch (Exception)
             {

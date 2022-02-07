@@ -6,6 +6,7 @@ namespace MangoShop
     public class MangoShop : RocketPlugin<MangoShopConfiguration>
     {
         public static MangoShop Instance { get; private set; }
+
         protected override void Load()
         {
             Instance = this;

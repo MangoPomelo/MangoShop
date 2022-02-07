@@ -7,34 +7,36 @@ namespace MangoShop
     {
         public string LoadMessage { get; set; }
         public Product[] OnSaleProducts { get; set; }
+
         public void LoadDefaults()
         {
             LoadMessage = "This is mango shop plugin!";
             // Load default configuration for on sale products
             OnSaleProducts = new Product[]
             {
-                new Product(){ ID = 17, Price = 100, Type = "ITEM" }, // Military Drum
-                new Product(){ ID = 43, Price = 50, Type = "ITEM" }, // Low Caliber Military Ammunition Crate
-                new Product(){ ID = 44, Price = 50, Type = "ITEM" }, // Low Caliber Civilian Ammunition Box
-                new Product(){ ID = 66, Price = 5, Type = "ITEM" }, // Cloth
-                new Product(){ ID = 67, Price = 5, Type = "ITEM" }, // Metal Scrap
-                new Product(){ ID = 113, Price = 15, Type = "ITEM" }, // 12 Gauge Shells
-                new Product(){ ID = 119, Price = 20, Type = "ITEM" }, // 	Low Caliber Ranger Ammunition Box
-                new Product(){ ID = 125, Price = 50, Type = "ITEM" }, // Ranger Drum
-				new Product(){ ID = 301, Price = 5, Type = "ITEM" }, // Rail
-				new Product(){ ID = 381, Price = 15, Type = "ITEM" }, // 20 Gauge Shells
-				new Product(){ ID = 489, Price = 15, Type = "ITEM" }, // Desert Falcon Magazine
-				new Product(){ ID = 520, Price = 5, Type = "ITEM" }, // Rocket
-				new Product(){ ID = 1113, Price = 5, Type = "ITEM" }, // Snare
-				new Product(){ ID = 1192, Price = 50, Type = "ITEM" }, // High Caliber Military Ammunition Crate
-				new Product(){ ID = 1193, Price = 50, Type = "ITEM" }, // High Caliber Ranger Ammunition Box
-				new Product(){ ID = 1194, Price = 2000, Type = "ITEM" }, // Horde Beacon
-				new Product(){ ID = 1209, Price = 5, Type = "ITEM" }, // Explosive Arrow
-				new Product(){ ID = 1219, Price = 200, Type = "ITEM" }, // Pump Jack
-				new Product(){ ID = 1302, Price = 20, Type = "ITEM" }, // Missile
-				new Product(){ ID = 1365, Price = 250, Type = "ITEM" }, // Hell's Fury Drum
-				new Product(){ ID = 3502, Price = 5, Type = "ITEM" }, // MLRS Rocket
-				new Product(){ ID = 3518, Price = 5, Type = "ITEM" }, // Lancer Rocket
+                new Product(){ Type = "ITEM", Name = "17", Price = 100 }, // Military Drum
+                new Product(){ Type = "ITEM", Name = "43", Price = 50 }, // Low Caliber Military Ammunition Crate
+                new Product(){ Type = "ITEM", Name = "44", Price = 50 }, // Low Caliber Civilian Ammunition Box
+                new Product(){ Type = "ITEM", Name = "66", Price = 5 }, // Cloth
+                new Product(){ Type = "ITEM", Name = "67", Price = 5 }, // Metal Scrap
+                new Product(){ Type = "ITEM", Name = "113", Price = 15 }, // 12 Gauge Shells
+                new Product(){ Type = "ITEM", Name = "119", Price = 20 }, // 	Low Caliber Ranger Ammunition Box
+                new Product(){ Type = "ITEM", Name = "125", Price = 50 }, // Ranger Drum
+				new Product(){ Type = "ITEM", Name = "301", Price = 5 }, // Rail
+				new Product(){ Type = "ITEM", Name = "381", Price = 15 }, // 20 Gauge Shells
+				new Product(){ Type = "ITEM", Name = "489", Price = 15 }, // Desert Falcon Magazine
+				new Product(){ Type = "ITEM", Name = "520", Price = 5 }, // Rocket
+				new Product(){ Type = "ITEM", Name = "1113", Price = 5 }, // Snare
+				new Product(){ Type = "ITEM", Name = "1192", Price = 50 }, // High Caliber Military Ammunition Crate
+				new Product(){ Type = "ITEM", Name = "1193", Price = 50 }, // High Caliber Ranger Ammunition Box
+				new Product(){ Type = "ITEM", Name = "1194", Price = 2000 }, // Horde Beacon
+				new Product(){ Type = "ITEM", Name = "1209", Price = 5 }, // Explosive Arrow
+				new Product(){ Type = "ITEM", Name = "1219", Price = 200 }, // Pump Jack
+				new Product(){ Type = "ITEM", Name = "1302", Price = 20 }, // Missile
+				new Product(){ Type = "ITEM", Name = "1365", Price = 250 }, // Hell's Fury Drum
+				new Product(){ Type = "ITEM", Name = "3502", Price = 5 }, // MLRS Rocket
+				new Product(){ Type = "ITEM", Name = "3518", Price = 5 }, // Lancer Rocket
+                new Product(){ Type = "LOTTERY", Name = "lottery", Price = 100 }, // Lottery
             };
         }
     }
