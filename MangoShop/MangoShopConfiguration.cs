@@ -6,12 +6,14 @@ namespace MangoShop
     public class MangoShopConfiguration : IRocketPluginConfiguration
     {
         public string LoadMessage { get; set; }
+        public Product DefaultProduct { get; set; }
         public Product[] OnSaleProducts { get; set; }
 
         public void LoadDefaults()
         {
             LoadMessage = "This is mango shop plugin!";
-            // Load default configuration for on sale products
+            // Load default configuration for products
+            DefaultProduct = new Product(){ Type = Product.DEFAULT_TYPE, Name = Product.DEFAULT_TYPE, Price = 100 };
             OnSaleProducts = new Product[]
             {
                 new Product(){ Type = Product.ITEM_TYPE, Name = "17", Price = 100 }, // Military Drum

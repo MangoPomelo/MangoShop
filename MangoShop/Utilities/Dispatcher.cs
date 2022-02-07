@@ -11,6 +11,8 @@ namespace MangoShop.Utilities
                     return new ItemProduct(product);
                 case Product.LOTTERY_TYPE:
                     return new LotteryProduct(product);
+                case Product.DEFAULT_TYPE:
+                    return new DefaultProduct(product);
                 default:
                     return new NullProduct(product);
             }

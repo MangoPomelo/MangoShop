@@ -33,7 +33,7 @@ namespace MangoShop.Commands
                 return;
             }
 
-            // Select the product and verify if it exists
+            // Select the product and verify if it exists otherwise continue with default product
             string productName = argument.Name;
             Product product = new Product(){ Name = "NULL", Price = 0, Type = "NULL" };
             try
@@ -42,8 +42,8 @@ namespace MangoShop.Commands
             }
             catch (Exception)
             {
-                UnturnedChat.Say(caller, "Product not found!");
-                return;
+                product = MangoShop.Instance.Configuration.Instance.DefaultProduct;
+                product.Name = productName;
             }
 
             // Decorate the product

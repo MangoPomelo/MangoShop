@@ -42,8 +42,8 @@ namespace MangoShop.Commands
             }
             catch (Exception)
             {
-                UnturnedChat.Say(caller, "Product not found!");
-                return;
+                product = MangoShop.Instance.Configuration.Instance.DefaultProduct;
+                product.Name = productName;
             }
 
             // Decorate the product
