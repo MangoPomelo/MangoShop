@@ -8,9 +8,9 @@ namespace MangoShop.Models
         public const string ITEM_TYPE = "Item";
         public const string LOTTERY_TYPE = "Lottery";
 
-        public string ProductType { private get; set; }
-        public string ProductName { private get; set; }
-        public uint BasePrice { private get; set; }
+        public string ProductType { get; set; }
+        public string ProductName { get; set; }
+        public uint BasePrice { get; set; }
 
         public Product SetProductType(string newType)
         {
