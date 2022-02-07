@@ -29,7 +29,7 @@ namespace MangoShop.Commands
             }
             catch (Exception)
             {
-                UnturnedChat.Say(caller, "Given command is invalid!");
+                UnturnedChat.Say(caller, MangoShop.Instance.Translate("CommandInvalid"), MangoShop.Instance.MessageColor);
                 return;
             }
 
@@ -55,11 +55,11 @@ namespace MangoShop.Commands
             try
             {
                 decoratedProduct.PurchasedBy(player, amount);
-                UnturnedChat.Say(caller, $"You received {product.Name} x {amount}!");
+                UnturnedChat.Say(caller, MangoShop.Instance.Translate("PurchaseSucceed", $"{product.Name} x {amount}"), MangoShop.Instance.MessageColor);
             }
             catch (Exception)
             {
-                UnturnedChat.Say(caller, $"Transaction failed!");
+                UnturnedChat.Say(caller, MangoShop.Instance.Translate("PurchaseFailed"), MangoShop.Instance.MessageColor);
                 return;
             }
         }

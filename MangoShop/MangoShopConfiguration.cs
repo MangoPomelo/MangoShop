@@ -5,12 +5,15 @@ namespace MangoShop
 {
     public class MangoShopConfiguration : IRocketPluginConfiguration
     {
+        public string MessageColor { get; set; }
         public string LoadMessage { get; set; }
         public Product DefaultProduct { get; set; }
         public Product[] OnSaleProducts { get; set; }
 
         public void LoadDefaults()
         {
+            // Load message configuration
+            MessageColor = "yellow";
             LoadMessage = "This is mango shop plugin!";
             // Load default configuration for products
             DefaultProduct = new Product(){ Type = Product.DEFAULT_TYPE, Name = Product.DEFAULT_TYPE, Price = 100 };
