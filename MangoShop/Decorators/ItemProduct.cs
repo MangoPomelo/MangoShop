@@ -40,7 +40,7 @@ namespace MangoShop.Decoraters
             }
 
             // Effect on the player
-            while (list.Count > 0) {
+            for (int n = 0; n < amount; n++) {
                 player.Inventory.removeItem(list[0].page, player.Inventory.getIndex(list[0].page, list[0].jar.x, list[0].jar.y));
                 list.RemoveAt(0);
             }

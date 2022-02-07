@@ -27,7 +27,7 @@ namespace MangoShop
                 new Product(){ Type = Product.ITEM_TYPE, Name = "66", Price = 5 }, // Cloth
                 new Product(){ Type = Product.ITEM_TYPE, Name = "67", Price = 5 }, // Metal Scrap
                 new Product(){ Type = Product.ITEM_TYPE, Name = "113", Price = 15 }, // 12 Gauge Shells
-                new Product(){ Type = Product.ITEM_TYPE, Name = "119", Price = 20 }, // 	Low Caliber Ranger Ammunition Box
+                new Product(){ Type = Product.ITEM_TYPE, Name = "119", Price = 20 }, // Low Caliber Ranger Ammunition Box
                 new Product(){ Type = Product.ITEM_TYPE, Name = "125", Price = 50 }, // Ranger Drum
 				new Product(){ Type = Product.ITEM_TYPE, Name = "301", Price = 5 }, // Rail
 				new Product(){ Type = Product.ITEM_TYPE, Name = "381", Price = 15 }, // 20 Gauge Shells
