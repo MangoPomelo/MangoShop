@@ -1,3 +1,4 @@
+using System;
 using Rocket.Unturned.Player;
 using MangoShop.Models;
 
@@ -40,6 +41,27 @@ namespace MangoShop.Decoraters
         public uint GetBasePrice()
         {
             return this._wrappeeProduct.GetBasePrice();
+        }
+
+        public DecoratedProduct SetDepreciationRate(double newDepreciationRate)
+        {
+            this._wrappeeProduct = this._wrappeeProduct.SetDepreciationRate(newDepreciationRate);
+            return this;
+        }
+        public double GetDepreciationRate()
+        {
+            return this._wrappeeProduct.GetDepreciationRate();
+        }
+
+        public uint GetPurchasedPrice()
+        {
+            return this.GetBasePrice();
+        }
+        public uint GetSellingPrice()
+        {
+            uint basePrice = this.GetBasePrice();
+            double depreciationRate = this.GetDepreciationRate();
+            return (uint)Math.Round(basePrice * (1 - depreciationRate));
         }
 
         public abstract DecoratedProduct PurchasedBy(UnturnedPlayer player, byte amount);

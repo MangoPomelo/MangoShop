@@ -11,6 +11,7 @@ namespace MangoShop.Models
         public string ProductType { get; set; }
         public string ProductName { get; set; }
         public uint BasePrice { get; set; }
+        public double DepreciationRate { get; set; }
 
         public Product SetProductType(string newType)
         {
@@ -42,5 +43,14 @@ namespace MangoShop.Models
             return this.BasePrice;
         }
 
+        public Product SetDepreciationRate(double newDepreciationRate)
+        {
+            this.DepreciationRate = newDepreciationRate;
+            return this;
+        }
+        public double GetDepreciationRate()
+        {
+            return this.DepreciationRate;
+        }
     }
 }

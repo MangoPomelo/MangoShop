@@ -54,8 +54,10 @@ namespace MangoShop.Commands
             byte amount = argument.Amount;
             try
             {
+                uint experienceBefore = player.Experience;
                 decoratedProduct.SoldBy(player, amount);
-                UnturnedChat.Say(caller, MangoShop.Instance.Translate("SellingSucceed", $"{product.GetBasePrice() * amount}"), MangoShop.Instance.MessageColor);
+                uint experienceAfter = player.Experience;
+                UnturnedChat.Say(caller, MangoShop.Instance.Translate("SellingSucceed", $"{experienceAfter - experienceBefore}"), MangoShop.Instance.MessageColor);
             }
             catch (Exception)
             {
