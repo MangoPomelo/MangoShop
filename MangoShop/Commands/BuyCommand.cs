@@ -35,7 +35,7 @@ namespace MangoShop.Commands
 
             // Select the product and verify if it exists
             string productName = argument.Name;
-            Product product = new Product(){ ProductType = "NULL", ProductName = "NULL", BasePrice = 0 };
+            Product product = new Product(){ ProductType = Product.NULL_TYPE, ProductName = Product.NULL_TYPE, BasePrice = 0 };
             try
             {
                 product = MangoShop.Instance.Configuration.Instance.OnSaleProducts.First(p => p.GetProductName() == productName);;
