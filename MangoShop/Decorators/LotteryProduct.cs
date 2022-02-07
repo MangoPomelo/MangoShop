@@ -12,7 +12,7 @@ namespace MangoShop.Decoraters
         public override DecoratedProduct PurchasedBy(UnturnedPlayer player, byte amount)
         {
             // Check if the player has sufficient money
-            uint totalCost = amount * this.Price;
+            uint totalCost = amount * this.GetBasePrice();
             if (player.Experience < totalCost) {
                 throw new InvalidOperationException("Player does not have enough money");
             }
@@ -35,7 +35,7 @@ namespace MangoShop.Decoraters
         private uint _generatePrice(byte amount)
         {
             uint prize = 0; // Default prize
-            uint roundPrize = this.Price; // Amount of experience gaining if bingo on each round
+            uint roundPrize = this.GetBasePrice(); // Amount of experience gaining if bingo on each round
             double probability = 0.6; // Chance of winning prize
             for (int i = 0; i < amount; i++) {
                 prize += this._bingo(probability) ? roundPrize : 0;

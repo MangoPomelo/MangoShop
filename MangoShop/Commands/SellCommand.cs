@@ -35,15 +35,15 @@ namespace MangoShop.Commands
 
             // Select the product and verify if it exists otherwise continue with default product
             string productName = argument.Name;
-            Product product = new Product(){ Name = "NULL", Price = 0, Type = "NULL" };
+            Product product = new Product(){ ProductType = "NULL", ProductName = "NULL", BasePrice = 0 };
             try
             {
-                product = MangoShop.Instance.Configuration.Instance.OnSaleProducts.First(p => p.Name == productName);;
+                product = MangoShop.Instance.Configuration.Instance.OnSaleProducts.First(p => p.GetProductName() == productName);;
             }
             catch (Exception)
             {
                 product = MangoShop.Instance.Configuration.Instance.DefaultProduct;
-                product.Name = productName;
+                product.SetProductName(productName);
             }
 
             // Decorate the product
@@ -55,7 +55,7 @@ namespace MangoShop.Commands
             try
             {
                 decoratedProduct.SoldBy(player, amount);
-                UnturnedChat.Say(caller, MangoShop.Instance.Translate("SellingSucceed", $"{product.Price * amount}"), MangoShop.Instance.MessageColor);
+                UnturnedChat.Say(caller, MangoShop.Instance.Translate("SellingSucceed", $"{product.GetBasePrice() * amount}"), MangoShop.Instance.MessageColor);
             }
             catch (Exception)
             {

@@ -13,13 +13,13 @@ namespace MangoShop.Decoraters
         public override DecoratedProduct PurchasedBy(UnturnedPlayer player, byte amount)
         {
             // Check if the player has sufficient money
-            uint totalCost = amount * this.Price;
+            uint totalCost = amount * this.GetBasePrice();
             if (player.Experience < totalCost) {
                 throw new InvalidOperationException("Player does not have enough money");
             }
 
             // Effect on the player
-            ushort itemId = this._convertNameToItemId(this.Name);
+            ushort itemId = this._convertNameToItemId(this.GetProductName());
             player.GiveItem(itemId, amount);
 
             // Payment
@@ -31,8 +31,8 @@ namespace MangoShop.Decoraters
         public override DecoratedProduct SoldBy(UnturnedPlayer player, byte amount)
         {
             // Check if the player has sufficient items
-            ushort itemId = this._convertNameToItemId(this.Name);
-            uint totalGain = amount * this.Price;
+            ushort itemId = this._convertNameToItemId(this.GetProductName());
+            uint totalGain = amount * this.GetBasePrice();
             List<InventorySearch> list = player.Inventory.search(itemId, true, true);
             if (list.Count < amount)
             {

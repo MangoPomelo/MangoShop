@@ -6,7 +6,7 @@ namespace MangoShop.Utilities
     public class Dispatcher
     {
         public static DecoratedProduct dispatch(Product product) {
-            switch (product.Type) {
+            switch (product.GetProductType()) {
                 case Product.ITEM_TYPE:
                     return new ItemProduct(product);
                 case Product.LOTTERY_TYPE:
