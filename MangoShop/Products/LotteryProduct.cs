@@ -35,7 +35,7 @@ namespace MangoShop.Products
         private uint _generatePrice(byte amount)
         {
             uint prize = 0; // Default prize
-            uint roundPrize = 2 * this.GetPurchasePrice(); // Amount of experience gaining if bingo on each round
+            uint roundPrize = 2 * this.GetPurchasePrice(); // Amount of experience gaining if bingo on each round (Double purchase price)
             double probability = 0.6; // Chance of winning prize
             for (int i = 0; i < amount; i++) {
                 prize += this._bingo(probability) ? roundPrize : 0;
@@ -45,7 +45,7 @@ namespace MangoShop.Products
 
         private bool _bingo(double probability)
         {
-            Random random = new System.Random();
+            Random random = new Random();
             return random.NextDouble() <= probability;
         }
 

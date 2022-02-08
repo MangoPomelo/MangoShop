@@ -40,6 +40,8 @@ namespace MangoShop
 
         protected override void Unload()
         {
+            StopAllCoroutines();
+
             Logger.Log($"{Name} has been unloaded!");
         }
     }

@@ -8,7 +8,15 @@ namespace MangoShop.Products
     public abstract class Product
     {
         private MetaProduct _metaProduct;
+        
         private static Dictionary<string, ulong> _scarcityMap = new Dictionary<string, ulong>();
+        public static void DecreaseGlobalScarcity() {
+            foreach(KeyValuePair<string, ulong> entry in Product._scarcityMap) {
+                string productName = entry.Key;
+                ulong scarcity = entry.Value;
+                Product._scarcityMap[productName] = scarcity >= 1 ? scarcity - 1 : 0; // Watch out for underflow
+            }
+        }
 
         public Product(MetaProduct meta)
         {
@@ -65,30 +73,30 @@ namespace MangoShop.Products
             return this._metaProduct.GetElasticity();;
         }
 
-        public Product SetScarcity(ulong newScarcity)
+        public Product IncreaseScarcity(byte unit)
         {
             string productName = this.GetProductName();
-            Product._scarcityMap[productName] = Math.Max(0, newScarcity);
+            Product._scarcityMap[productName] = Product._scarcityMap.ContainsKey(productName) ? Product._scarcityMap[productName] + unit : unit;
             return this;
         }
-        public ulong GetScarcity()
+        public Product DecreaseScarcity(byte unit)
         {
             string productName = this.GetProductName();
-            try
-            {
-                return Product._scarcityMap[productName];
-            }
-            catch (KeyNotFoundException)
-            {
-                return 0;
-            }
+            // Check if the key exists and if it won't trigger underflow, set 0 if it will
+            Product._scarcityMap[productName] = Product._scarcityMap.ContainsKey(productName) && Product._scarcityMap[productName] >= unit ? Product._scarcityMap[productName] - unit : 0;
+            return this;
         }
 
         public uint GetPurchasePrice()
         {
             uint basePrice = this.GetBasePrice();
-            uint floatPrice = (uint)Math.Round(this.GetScarcity() * this.GetElasticity());
+            uint floatPrice = (uint)Math.Round(this._getScarcity() * this.GetElasticity());
             return basePrice + floatPrice;
+        }
+        private ulong _getScarcity()
+        {
+            string productName = this.GetProductName();
+            return Product._scarcityMap.ContainsKey(productName) ? Product._scarcityMap[productName] : 0;
         }
         public uint GetSellingPrice()
         {

@@ -26,7 +26,7 @@ namespace MangoShop.Products
             player.Experience -= totalCost;
 
             // Increase scarcity
-            this.SetScarcity(this.GetScarcity() + amount);
+            this.IncreaseScarcity(amount);
 
             return this;
         }
@@ -52,7 +52,7 @@ namespace MangoShop.Products
             player.Experience += totalGain;
 
             // Decrease scarcity
-            this.SetScarcity(this.GetScarcity() - amount);
+            this.DecreaseScarcity(amount);
 
             return this;
         }
