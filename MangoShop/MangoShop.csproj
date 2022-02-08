@@ -55,8 +55,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\*.cs" />
-    <Compile Include="Decorators\*.cs" />
     <Compile Include="Models\*.cs" />
+    <Compile Include="Products\*.cs" />
     <Compile Include="Utilities\*.cs" />
     <Compile Include="MangoShop.cs" />
     <Compile Include="MangoShopConfiguration.cs" />

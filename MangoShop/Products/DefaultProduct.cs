@@ -4,13 +4,13 @@ using SDG.Unturned;
 using Rocket.Unturned.Player;
 using MangoShop.Models;
 
-namespace MangoShop.Decoraters
+namespace MangoShop.Products
 {
-    public class ItemProduct : DecoratedProduct
+    public class DefaultProduct : Product
     {
-        public ItemProduct(Product product) : base(product) {}
+        public DefaultProduct(MetaProduct product) : base(product) {}
 
-        public override DecoratedProduct PurchasedBy(UnturnedPlayer player, byte amount)
+        public override Product PurchasedBy(UnturnedPlayer player, byte amount)
         {
             // Check if the player has sufficient money
             uint totalCost = amount * this.GetPurchasedPrice();
@@ -19,7 +19,7 @@ namespace MangoShop.Decoraters
             }
 
             // Effect on the player
-            ushort itemId = this._mapNameToItemId(this.GetProductName());
+            ushort itemId = this._convertNameToItemId(this.GetProductName());
             player.GiveItem(itemId, amount);
 
             // Payment
@@ -28,10 +28,10 @@ namespace MangoShop.Decoraters
             return this;
         }
 
-        public override DecoratedProduct SoldBy(UnturnedPlayer player, byte amount)
+        public override Product SoldBy(UnturnedPlayer player, byte amount)
         {
             // Check if the player has sufficient items
-            ushort itemId = this._mapNameToItemId(this.GetProductName());
+            ushort itemId = this._convertNameToItemId(this.GetProductName());
             uint totalGain = amount * this.GetSellingPrice();
             List<InventorySearch> list = player.Inventory.search(itemId, true, true);
             if (list.Count < amount)
@@ -51,15 +51,15 @@ namespace MangoShop.Decoraters
             return this;
         }
 
-        private ushort _mapNameToItemId(string name)
+        private ushort _convertNameToItemId(string name)
         {
-            try 
+            try
             {
                 return Convert.ToUInt16(name);
             }
             catch (Exception)
             {
-                throw new InvalidOperationException("Cannot map the product name to item id");
+                throw new InvalidOperationException("Cannot convert the product name to item id");
             }
         }
     }

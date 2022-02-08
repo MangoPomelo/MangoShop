@@ -6,7 +6,7 @@ using System.Linq;
 using System.Collections.Generic;
 using MangoShop.Models;
 using MangoShop.Utilities;
-using MangoShop.Decoraters;
+using MangoShop.Products;
 
 namespace MangoShop.Commands
 {
@@ -35,19 +35,19 @@ namespace MangoShop.Commands
 
             // Select the product and verify if it exists otherwise continue with default product
             string productName = argument.Name;
-            Product product = new Product(){ ProductType = Product.NULL_TYPE, ProductName = Product.NULL_TYPE, BasePrice = 0 };
+            MetaProduct metaProduct = new MetaProduct(){ ProductType = MetaProduct.NULL_TYPE, ProductName = MetaProduct.NULL_TYPE, BasePrice = 0 };
             try
             {
-                product = MangoShop.Instance.Configuration.Instance.OnSaleProducts.First(p => p.GetProductName() == productName);;
+                metaProduct = MangoShop.Instance.Configuration.Instance.OnSaleProducts.First(p => p.GetProductName() == productName);;
             }
             catch (Exception)
             {
-                product = MangoShop.Instance.Configuration.Instance.DefaultProduct;
-                product.SetProductName(productName);
+                metaProduct = MangoShop.Instance.Configuration.Instance.DefaultProduct;
+                metaProduct.SetProductName(productName);
             }
 
-            // Decorate the product
-            DecoratedProduct decoratedProduct = Dispatcher.dispatch(product);
+            // Generate the product
+            Product product = Dispatcher.dispatch(metaProduct);
 
             // Sell the product
             UnturnedPlayer player = (UnturnedPlayer)caller;
@@ -55,7 +55,7 @@ namespace MangoShop.Commands
             try
             {
                 uint experienceBefore = player.Experience;
-                decoratedProduct.SoldBy(player, amount);
+                product.SoldBy(player, amount);
                 uint experienceAfter = player.Experience;
                 UnturnedChat.Say(caller, MangoShop.Instance.Translate("SellingSucceed", $"{experienceAfter - experienceBefore}"), MangoShop.Instance.MessageColor);
             }

@@ -1,22 +1,22 @@
 using MangoShop.Models;
-using MangoShop.Decoraters;
+using MangoShop.Products;
 
 namespace MangoShop.Utilities
 {
     public class Dispatcher
     {
-        public static DecoratedProduct dispatch(Product product) {
-            switch (product.GetProductType()) {
-                case Product.ITEM_TYPE:
-                    return new ItemProduct(product);
-                case Product.LOTTERY_TYPE:
-                    return new LotteryProduct(product);
-                case Product.BANNED_TYPE:
-                    return new BannedProduct(product);
-                case Product.DEFAULT_TYPE:
-                    return new DefaultProduct(product);
+        public static Product dispatch(MetaProduct metaProduct) {
+            switch (metaProduct.GetProductType()) {
+                case MetaProduct.ITEM_TYPE:
+                    return new ItemProduct(metaProduct);
+                case MetaProduct.LOTTERY_TYPE:
+                    return new LotteryProduct(metaProduct);
+                case MetaProduct.BANNED_TYPE:
+                    return new BannedProduct(metaProduct);
+                case MetaProduct.DEFAULT_TYPE:
+                    return new DefaultProduct(metaProduct);
                 default:
-                    return new NullProduct(product);
+                    return new NullProduct(metaProduct);
             }
         }
     }

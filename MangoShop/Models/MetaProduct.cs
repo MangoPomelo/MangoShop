@@ -1,6 +1,6 @@
 namespace MangoShop.Models
 {
-    public class Product
+    public class MetaProduct
     {
         public const string NULL_TYPE = "Null";
         public const string DEFAULT_TYPE = "Default";
@@ -12,8 +12,9 @@ namespace MangoShop.Models
         public string ProductName { get; set; }
         public uint BasePrice { get; set; }
         public double DepreciationRate { get; set; }
+        public double Elasticity { get; set; }
 
-        public Product SetProductType(string newType)
+        public MetaProduct SetProductType(string newType)
         {
             this.ProductType = newType;
             return this;
@@ -23,7 +24,7 @@ namespace MangoShop.Models
             return this.ProductType;
         }
 
-        public Product SetProductName(string newName)
+        public MetaProduct SetProductName(string newName)
         {
             this.ProductName = newName;
             return this;
@@ -33,7 +34,7 @@ namespace MangoShop.Models
             return this.ProductName;
         }
 
-        public Product SetBasePrice(uint newBasePrice)
+        public MetaProduct SetBasePrice(uint newBasePrice)
         {
             this.BasePrice = newBasePrice;
             return this;
@@ -43,7 +44,7 @@ namespace MangoShop.Models
             return this.BasePrice;
         }
 
-        public Product SetDepreciationRate(double newDepreciationRate)
+        public MetaProduct SetDepreciationRate(double newDepreciationRate)
         {
             this.DepreciationRate = newDepreciationRate;
             return this;
@@ -51,6 +52,16 @@ namespace MangoShop.Models
         public double GetDepreciationRate()
         {
             return this.DepreciationRate;
+        }
+
+        public MetaProduct SetElasticity(double newElasticity)
+        {
+            this.Elasticity = newElasticity;
+            return this;
+        }
+        public double GetElasticity()
+        {
+            return this.Elasticity;
         }
     }
 }

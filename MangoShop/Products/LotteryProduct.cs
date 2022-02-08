@@ -3,13 +3,13 @@ using Rocket.Unturned.Player;
 using Rocket.Unturned.Chat;
 using MangoShop.Models;
 
-namespace MangoShop.Decoraters
+namespace MangoShop.Products
 {
-    public class LotteryProduct : DecoratedProduct
+    public class LotteryProduct : Product
     {
-        public LotteryProduct(Product product) : base(product) {}
+        public LotteryProduct(MetaProduct product) : base(product) {}
 
-        public override DecoratedProduct PurchasedBy(UnturnedPlayer player, byte amount)
+        public override Product PurchasedBy(UnturnedPlayer player, byte amount)
         {
             // Check if the player has sufficient money
             uint totalCost = amount * this.GetPurchasedPrice();
@@ -49,7 +49,7 @@ namespace MangoShop.Decoraters
             return random.NextDouble() <= probability;
         }
 
-        public override DecoratedProduct SoldBy(UnturnedPlayer player, byte amount)
+        public override Product SoldBy(UnturnedPlayer player, byte amount)
         {
             throw new InvalidOperationException("Lottery cannot be sold");
         }
