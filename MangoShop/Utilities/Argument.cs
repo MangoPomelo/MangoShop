@@ -26,11 +26,7 @@ namespace MangoShop.Utilities
                 // Parse the second argument as Amount (Optional)
                 this.Amount = command.Length >= 2 ? Convert.ToByte(command[1]) : this.Amount;
             }
-            catch (FormatException ex)
-            {
-                throw ex;
-            }
-            catch (Exception)
+            catch (Exception ex) when (ex is IndexOutOfRangeException || ex is FormatException)
             {
                 throw new FormatException("Error occurs when parsing argument");
             }

@@ -19,10 +19,13 @@ namespace MangoShop
             { "ProductNotFound", "Product not found!" },
             // BuyCommand
             { "PurchaseSucceed", "You received {0}!" },
-            { "PurchaseFailed", "You don't have enough experience or the product is banned!" },
+            { "PurchaseFailed", "Your xp is less than {0} or the product is banned!" },
             // SellCommand
-            { "SellingSucceed", "You received {0} experience!" },
+            { "SellingSucceed", "You received {0} xp!" },
             { "SellingFailed", "You don't have enough items or the product cannot be sold!" },
+            // EvalCommand
+            { "EvaluationSucceed", "Product costs {0} xp!" },
+            { "EvaluationFailed", "Product cannot be evaluated!" }
         };
 
         protected override void Load()

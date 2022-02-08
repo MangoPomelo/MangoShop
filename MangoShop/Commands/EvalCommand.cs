@@ -1,4 +1,4 @@
-﻿using Rocket.API;
+using Rocket.API;
 using Rocket.Unturned.Chat;
 using Rocket.Unturned.Player;
 using System;
@@ -10,12 +10,12 @@ using MangoShop.Products;
 
 namespace MangoShop.Commands
 {
-    public class BuyCommand : IRocketCommand
+    public class EvalCommand : IRocketCommand
     {
         public AllowedCaller AllowedCaller => AllowedCaller.Player;
-        public string Name => "buy";
+        public string Name => "eval";
         public string Help => "";
-        public string Syntax => "<buy>";
+        public string Syntax => "<eval>";
         public List<string> Aliases => new List<string>();
         public List<string> Permissions => new List<string>();
 
@@ -27,20 +27,20 @@ namespace MangoShop.Commands
             {
                 argument = argument.Parse(command);
             }
-            catch (FormatException)
+            catch (Exception)
             {
                 UnturnedChat.Say(caller, MangoShop.Instance.Translate("CommandInvalid"), MangoShop.Instance.MessageColor);
                 return;
             }
 
-            // Select the product and verify if it exists
+            // Select the product and verify if it exists otherwise continue with default product
             string productName = argument.Name;
             MetaProduct metaProduct = new MetaProduct(){ ProductType = MetaProduct.NULL_TYPE, ProductName = MetaProduct.NULL_TYPE, BasePrice = 0 };
             try
             {
                 metaProduct = MangoShop.Instance.Configuration.Instance.OnSaleProducts.First(p => p.GetProductName() == productName);;
             }
-            catch (InvalidOperationException)
+            catch (Exception)
             {
                 metaProduct = MangoShop.Instance.Configuration.Instance.DefaultProduct;
                 metaProduct.SetProductName(productName);
@@ -49,17 +49,17 @@ namespace MangoShop.Commands
             // Generate the product
             Product product = Dispatcher.dispatch(metaProduct);
 
-            // Buy the product
+            // Info the product
             UnturnedPlayer player = (UnturnedPlayer)caller;
             byte amount = argument.Amount;
             try
             {
-                product.PurchasedBy(player, amount);
-                UnturnedChat.Say(caller, MangoShop.Instance.Translate("PurchaseSucceed", $"{product.GetProductName()} x {amount}"), MangoShop.Instance.MessageColor);
+                uint totalCost = amount * product.GetPurchasePrice();
+                UnturnedChat.Say(caller, MangoShop.Instance.Translate("EvaluationSucceed", totalCost), MangoShop.Instance.MessageColor);
             }
             catch (InvalidOperationException)
             {
-                UnturnedChat.Say(caller, MangoShop.Instance.Translate("PurchaseFailed"), MangoShop.Instance.MessageColor);
+                UnturnedChat.Say(caller, MangoShop.Instance.Translate("EvaluationFailed"), MangoShop.Instance.MessageColor);
                 return;
             }
         }

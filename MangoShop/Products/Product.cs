@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Rocket.Unturned.Player;
 using MangoShop.Models;
 
@@ -7,6 +8,7 @@ namespace MangoShop.Products
     public abstract class Product
     {
         private MetaProduct _metaProduct;
+        private static Dictionary<string, ulong> _scarcityMap = new Dictionary<string, ulong>();
 
         public Product(MetaProduct meta)
         {
@@ -53,15 +55,46 @@ namespace MangoShop.Products
             return this._metaProduct.GetDepreciationRate();
         }
 
-        public uint GetPurchasedPrice()
+        public Product SetElasticity(double newElasticity)
         {
-            return this.GetBasePrice();
+            this._metaProduct = this._metaProduct.SetElasticity(newElasticity);
+            return this;
+        }
+        public double GetElasticity()
+        {
+            return this._metaProduct.GetElasticity();;
+        }
+
+        public Product SetScarcity(ulong newScarcity)
+        {
+            string productName = this.GetProductName();
+            Product._scarcityMap[productName] = Math.Max(0, newScarcity);
+            return this;
+        }
+        public ulong GetScarcity()
+        {
+            string productName = this.GetProductName();
+            try
+            {
+                return Product._scarcityMap[productName];
+            }
+            catch (KeyNotFoundException)
+            {
+                return 0;
+            }
+        }
+
+        public uint GetPurchasePrice()
+        {
+            uint basePrice = this.GetBasePrice();
+            uint floatPrice = (uint)Math.Round(this.GetScarcity() * this.GetElasticity());
+            return basePrice + floatPrice;
         }
         public uint GetSellingPrice()
         {
-            uint basePrice = this.GetBasePrice();
-            double depreciationRate = this.GetDepreciationRate();
-            return (uint)Math.Round(basePrice * (1 - depreciationRate));
+            uint purchasePrice = this.GetPurchasePrice();
+            uint depreciationPrice = (uint)Math.Round(this.GetDepreciationRate() * purchasePrice);
+            return purchasePrice - depreciationPrice;
         }
 
         public abstract Product PurchasedBy(UnturnedPlayer player, byte amount);

@@ -59,7 +59,7 @@ namespace MangoShop.Commands
                 uint experienceAfter = player.Experience;
                 UnturnedChat.Say(caller, MangoShop.Instance.Translate("SellingSucceed", $"{experienceAfter - experienceBefore}"), MangoShop.Instance.MessageColor);
             }
-            catch (Exception)
+            catch (InvalidOperationException)
             {
                 UnturnedChat.Say(caller, MangoShop.Instance.Translate("SellingFailed"), MangoShop.Instance.MessageColor);
                 return;

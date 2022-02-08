@@ -12,7 +12,7 @@ namespace MangoShop.Products
         public override Product PurchasedBy(UnturnedPlayer player, byte amount)
         {
             // Check if the player has sufficient money
-            uint totalCost = amount * this.GetPurchasedPrice();
+            uint totalCost = amount * this.GetPurchasePrice();
             if (player.Experience < totalCost) {
                 throw new InvalidOperationException("Player does not have enough money");
             }
@@ -35,7 +35,7 @@ namespace MangoShop.Products
         private uint _generatePrice(byte amount)
         {
             uint prize = 0; // Default prize
-            uint roundPrize = this.GetPurchasedPrice(); // Amount of experience gaining if bingo on each round
+            uint roundPrize = this.GetPurchasePrice(); // Amount of experience gaining if bingo on each round
             double probability = 0.6; // Chance of winning prize
             for (int i = 0; i < amount; i++) {
                 prize += this._bingo(probability) ? roundPrize : 0;

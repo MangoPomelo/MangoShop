@@ -13,7 +13,7 @@ namespace MangoShop.Products
         public override Product PurchasedBy(UnturnedPlayer player, byte amount)
         {
             // Check if the player has sufficient money
-            uint totalCost = amount * this.GetPurchasedPrice();
+            uint totalCost = amount * this.GetPurchasePrice();
             if (player.Experience < totalCost) {
                 throw new InvalidOperationException("Player does not have enough money");
             }
@@ -24,6 +24,9 @@ namespace MangoShop.Products
 
             // Payment
             player.Experience -= totalCost;
+
+            // Increase scarcity
+            this.SetScarcity(this.GetScarcity() + amount);
 
             return this;
         }
@@ -48,6 +51,9 @@ namespace MangoShop.Products
             // Payment
             player.Experience += totalGain;
 
+            // Decrease scarcity
+            this.SetScarcity(this.GetScarcity() - amount);
+
             return this;
         }
 
@@ -57,7 +63,7 @@ namespace MangoShop.Products
             {
                 return Convert.ToUInt16(name);
             }
-            catch (Exception)
+            catch (FormatException)
             {
                 throw new InvalidOperationException("Cannot convert the product name to item id");
             }
