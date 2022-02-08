@@ -7,6 +7,7 @@ namespace MangoShop.Products
 {
     public class LotteryProduct : Product
     {
+        private Random _randomGenerator = new Random();
         public LotteryProduct(MetaProduct product) : base(product) {}
 
         public override Product PurchasedBy(UnturnedPlayer player, byte amount)
@@ -45,8 +46,8 @@ namespace MangoShop.Products
 
         private bool _bingo(double probability)
         {
-            Random random = new Random();
-            return random.NextDouble() <= probability;
+            double randomNumber = this._randomGenerator.NextDouble();
+            return randomNumber <= probability;
         }
 
         public override Product SoldBy(UnturnedPlayer player, byte amount)
