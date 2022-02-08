@@ -1,7 +1,9 @@
-﻿using Rocket.API.Collections;
+﻿using System.Collections;
+using Rocket.API.Collections;
 using Rocket.Core.Plugins;
 using Rocket.Core.Logging;
 using Rocket.Unturned.Chat;
+using MangoShop.Products;
 
 namespace MangoShop
 {
@@ -31,11 +33,20 @@ namespace MangoShop
         protected override void Load()
         {
             Instance = this;
+            StartCoroutine(this._decreaseGlobalScarcityRoutine(Configuration.Instance.DecreaseGlobalScarcityInterval));
 
             MessageColor = UnturnedChat.GetColorFromName(Configuration.Instance.MessageColor, UnityEngine.Color.green);
 
             Logger.Log(Configuration.Instance.LoadMessage);
             Logger.Log($"{Name} {Assembly.GetName().Version} has been loaded!");
+        }
+
+        private IEnumerator _decreaseGlobalScarcityRoutine(float seconds)
+        {
+            while (true) {
+                yield return new UnityEngine.WaitForSeconds(seconds);
+                Product.DecreaseGlobalScarcity();
+            }
         }
 
         protected override void Unload()

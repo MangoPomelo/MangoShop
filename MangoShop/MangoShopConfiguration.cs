@@ -7,6 +7,7 @@ namespace MangoShop
     {
         public string MessageColor { get; set; }
         public string LoadMessage { get; set; }
+        public float DecreaseGlobalScarcityInterval { get; set; }
         public MetaProduct DefaultProduct { get; set; }
         public MetaProduct[] OnSaleProducts { get; set; }
 
@@ -15,7 +16,8 @@ namespace MangoShop
             // Load message configuration
             MessageColor = "yellow";
             LoadMessage = "This is mango shop plugin!";
-            // Global
+            // Load scarcity decrease routine interval
+            DecreaseGlobalScarcityInterval = 900;
             // Load default configuration for products
             DefaultProduct = new MetaProduct(){ ProductType = MetaProduct.DEFAULT_TYPE, ProductName = MetaProduct.DEFAULT_TYPE, BasePrice = 100, DepreciationRate = 0.8, Elasticity = 1 };
             OnSaleProducts = new MetaProduct[]
