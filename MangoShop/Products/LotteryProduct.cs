@@ -26,7 +26,7 @@ namespace MangoShop.Products
 
             // Congratulate the winner
             if (prize > 0) {
-                UnturnedChat.Say($"{player.CharacterName} won {prize}! Congratulations!");
+                UnturnedChat.Say($"{player.CharacterName} won {prize} xp! Congratulations!");
             }
 
             return this;
@@ -35,7 +35,7 @@ namespace MangoShop.Products
         private uint _generatePrice(byte amount)
         {
             uint prize = 0; // Default prize
-            uint roundPrize = this.GetPurchasePrice(); // Amount of experience gaining if bingo on each round
+            uint roundPrize = 2 * this.GetPurchasePrice(); // Amount of experience gaining if bingo on each round
             double probability = 0.6; // Chance of winning prize
             for (int i = 0; i < amount; i++) {
                 prize += this._bingo(probability) ? roundPrize : 0;
