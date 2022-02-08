@@ -1,6 +1,28 @@
-# MangoShop(WIP)
-A simple Unturned economy plugin using chat line.
+# MangoShop
+A simple Unturned economy plugin using chat line without Database. The currency of this plugin is xp of players.
 ## How to develop
 [Download dotnetSDK](https://dotnet.microsoft.com/en-us/download) to enable "dotnet" command on terminal  
 [Download .NET Framework 4.6.1](https://www.microsoft.com/en-us/download/details.aspx?id=49978) then install to compile the plugin into correct version which fits Unturned Server  
-Use "dotnet build" command on terminal to pack the plugin into a .dll file
+Use "dotnet build" command on terminal to pack the plugin into a .dll file  
+
+## How to use the plugin
+There are 3 commands: /eval, /buy and /sell. These commands are meant to be used by everyone that has permissions for them. Remember to put the command in the permissions file.  
+
+Usage:  
+- /eval \<name\> [amount]
+    - The argument _name_ is necessary and argument _amount_ is optional, default is 1.
+    - This will evaluate the same name product configured in xml file, prompt the price when player purchasing
+- /buy \<name\> [amount]
+    - The argument _name_ is necessary and argument _amount_ is optional, default is 1.
+    - This will cost xp of the player then give the specified product according to the name. The product will be regarded as _DefaultProduct_ if there's no name matched in xml file.
+- /sell \<name\> [amount]
+    - The argument _name_ is necessary and argument _amount_ is optional, default is 1.
+    - This will give xp back to the player then remove the specified product according to the name. The product will be regarded as _DefaultProduct_ if there's no name matched in xml file.
+
+## Terms
+- MetaProduct: The basic description to generate a real product
+- ProductType: The string for dispatcher to determine which type of product should be generated
+- ProductName: The keyword to match user's input
+- BasePrice: The price in default without float price
+- Elasticity: Price increment when the specific product has been purchased
+- Scarcity: Times that the specific product has been purchased, and it'll be reduced when the product is sold by the player
