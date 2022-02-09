@@ -1,16 +1,59 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using SDG.Unturned;
 using Rocket.Unturned.Player;
 using MangoShop.Models;
+using Rocket.Unturned.Chat;
 
 namespace MangoShop.Products
 {
     public class ItemProduct : Product
     {
-        public ItemProduct(MetaProduct product) : base(product) {}
+        public static bool DoesMetaProductFit(MetaProduct metaProduct)
+        {
+            // Product type must be either MetaProduct.ITEM_TYPE or MetaProduct.UNKNOWN_TYPE
+            string productType = metaProduct.GetProductType();
+            if (productType != MetaProduct.ITEM_TYPE && productType != MetaProduct.UNKNOWN_TYPE)
+            {
+                return false;
+            }
 
-        public override Product PurchasedBy(UnturnedPlayer player, byte amount)
+            // Product name must be strictly splitted into two parts
+            string[] splitted = metaProduct.GetProductName().Split('.');
+            if (splitted.Length != 2)
+            {
+                return false;
+            }
+
+            string prefix = splitted[0];
+            string suffix = splitted[1];
+
+            // Prefix must be "i"
+            if (prefix != "i")
+            {
+                return false;
+            }
+            // Suffix must be an interger
+            if (!(suffix != "" && suffix.All(char.IsDigit)))
+            {
+                return false;
+            }
+
+            return true;
+        }
+        public static Product CreateProduct(MetaProduct metaProduct)
+        {
+            if (!ItemProduct.DoesMetaProductFit(metaProduct))
+            {
+                throw new InvalidOperationException("Wrong meta product has been provided");
+            }
+            return new ItemProduct(metaProduct);
+        }
+
+        private ItemProduct(MetaProduct meta) : base(meta) {}
+
+        public override void PurchasedBy(UnturnedPlayer player, byte amount)
         {
             // Check if the player has sufficient money
             uint totalCost = amount * this.GetPurchasePrice();
@@ -19,7 +62,7 @@ namespace MangoShop.Products
             }
 
             // Effect on the player
-            ushort itemId = this._mapNameToItemId(this.GetProductName());
+            ushort itemId = this._mapProductNameToItemId(this.GetProductName());
             player.GiveItem(itemId, amount);
 
             // Payment
@@ -27,14 +70,12 @@ namespace MangoShop.Products
 
             // Increase scarcity
             this.IncreaseScarcity(amount);
-
-            return this;
         }
 
-        public override Product SoldBy(UnturnedPlayer player, byte amount)
+        public override void SoldBy(UnturnedPlayer player, byte amount)
         {
             // Check if the player has sufficient items
-            ushort itemId = this._mapNameToItemId(this.GetProductName());
+            ushort itemId = this._mapProductNameToItemId(this.GetProductName());
             uint totalGain = amount * this.GetSellingPrice();
             List<InventorySearch> list = player.Inventory.search(itemId, true, true);
             if (list.Count < amount)
@@ -53,20 +94,12 @@ namespace MangoShop.Products
 
             // Decrease scarcity
             this.DecreaseScarcity(amount);
-
-            return this;
         }
 
-        private ushort _mapNameToItemId(string name)
+        private ushort _mapProductNameToItemId(string productName)
         {
-            try 
-            {
-                return Convert.ToUInt16(name);
-            }
-            catch (FormatException)
-            {
-                throw new InvalidOperationException("Cannot map the product name to item id");
-            }
+            string suffix = productName.Split('.')[1];
+            return Convert.ToUInt16(suffix);
         }
     }
 }

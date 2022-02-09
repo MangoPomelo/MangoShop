@@ -6,14 +6,34 @@ namespace MangoShop.Products
 {
     public class BannedProduct : Product
     {
-        public BannedProduct(MetaProduct meta) : base(meta) {}
+        public static bool DoesMetaProductFit(MetaProduct metaProduct)
+        {
+            // Product type must be MetaProduct.BANNED_TYPE
+            string productType = metaProduct.GetProductType();
+            if (productType != MetaProduct.BANNED_TYPE)
+            {
+                return false;
+            }
 
-        public override Product PurchasedBy(UnturnedPlayer player, byte amount)
+            return true;
+        }
+        public static Product CreateProduct(MetaProduct metaProduct)
+        {
+            if (!BannedProduct.DoesMetaProductFit(metaProduct))
+            {
+                throw new InvalidOperationException("Wrong meta product has been provided");
+            }
+            return new BannedProduct(metaProduct);
+        }
+
+        private BannedProduct(MetaProduct meta) : base(meta) {}
+
+        public override void PurchasedBy(UnturnedPlayer player, byte amount)
         {
             throw new InvalidOperationException("This product is banned");
         }
 
-        public override Product SoldBy(UnturnedPlayer player, byte amount)
+        public override void SoldBy(UnturnedPlayer player, byte amount)
         {
             throw new InvalidOperationException("This product is banned");
         }

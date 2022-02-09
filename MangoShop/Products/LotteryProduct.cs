@@ -7,10 +7,37 @@ namespace MangoShop.Products
 {
     public class LotteryProduct : Product
     {
-        private Random _randomGenerator = new Random();
-        public LotteryProduct(MetaProduct product) : base(product) {}
+        public static bool DoesMetaProductFit(MetaProduct metaProduct)
+        {
+            // Product type must be either MetaProduct.LOTTERY_TYPE or MetaProduct.UNKNOWN_TYPE
+            string productType = metaProduct.GetProductType();
+            if (productType != MetaProduct.LOTTERY_TYPE && productType != MetaProduct.UNKNOWN_TYPE)
+            {
+                return false;
+            }
 
-        public override Product PurchasedBy(UnturnedPlayer player, byte amount)
+            // Product name must be strictly "lottery"
+            string productName = metaProduct.GetProductName();
+            if (productName != "lottery")
+            {
+                return false;
+            }
+
+            return true;
+        }
+        public static Product CreateProduct(MetaProduct metaProduct)
+        {
+            if (!LotteryProduct.DoesMetaProductFit(metaProduct))
+            {
+                throw new InvalidOperationException("Wrong meta product has been provided");
+            }
+            return new LotteryProduct(metaProduct);
+        }
+
+        private Random _randomGenerator = new Random();
+        private LotteryProduct(MetaProduct meta) : base(meta) {}
+
+        public override void PurchasedBy(UnturnedPlayer player, byte amount)
         {
             // Check if the player has sufficient money
             uint totalCost = amount * this.GetPurchasePrice();
@@ -29,8 +56,6 @@ namespace MangoShop.Products
             if (prize > 0) {
                 UnturnedChat.Say($"{player.CharacterName} won {prize} xp! Congratulations!");
             }
-
-            return this;
         }
 
         private uint _generatePrice(byte amount)
@@ -50,7 +75,7 @@ namespace MangoShop.Products
             return randomNumber <= probability;
         }
 
-        public override Product SoldBy(UnturnedPlayer player, byte amount)
+        public override void SoldBy(UnturnedPlayer player, byte amount)
         {
             throw new InvalidOperationException("Lottery cannot be sold");
         }

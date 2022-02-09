@@ -42,8 +42,7 @@ namespace MangoShop.Commands
             }
             catch (Exception)
             {
-                metaProduct = MangoShop.Instance.Configuration.Instance.DefaultProduct;
-                metaProduct.SetProductName(productName);
+                metaProduct = new MetaProduct(){ ProductType = MetaProduct.UNKNOWN_TYPE, ProductName = productName, BasePrice = 0, DepreciationRate = 1.0, Elasticity = 0 };
             }
 
             // Generate the product
@@ -62,6 +61,11 @@ namespace MangoShop.Commands
             catch (InvalidOperationException)
             {
                 UnturnedChat.Say(caller, MangoShop.Instance.Translate("SellingFailed"), MangoShop.Instance.MessageColor);
+                return;
+            }
+            catch (NullReferenceException)
+            {
+                UnturnedChat.Say(caller, MangoShop.Instance.Translate("ProductNotFound"), MangoShop.Instance.MessageColor);
                 return;
             }
         }

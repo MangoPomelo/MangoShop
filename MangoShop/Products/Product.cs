@@ -105,7 +105,7 @@ namespace MangoShop.Products
             return purchasePrice - depreciationPrice;
         }
 
-        public abstract Product PurchasedBy(UnturnedPlayer player, byte amount);
-        public abstract Product SoldBy(UnturnedPlayer player, byte amount);
+        public abstract void PurchasedBy(UnturnedPlayer player, byte amount);
+        public abstract void SoldBy(UnturnedPlayer player, byte amount);
     }
 }
