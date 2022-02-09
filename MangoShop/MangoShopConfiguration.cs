@@ -21,7 +21,7 @@ namespace MangoShop
             DecreaseGlobalScarcityInterval = 900;
             // Load default configuration for products
             DefaultMetaItemProduct = new MetaProduct(){ ProductType = MetaProduct.ITEM_TYPE, ProductName = MetaProduct.ITEM_TYPE, BasePrice = 100, DepreciationRate = 0.8, Elasticity = 1 };
-            DefaultMetaVehicleProduct = new MetaProduct(){ ProductType = MetaProduct.VEHICLE_TYPE, ProductName = MetaProduct.ITEM_TYPE, BasePrice = 1000, DepreciationRate = 1.0, Elasticity = 250 };
+            DefaultMetaVehicleProduct = new MetaProduct(){ ProductType = MetaProduct.VEHICLE_TYPE, ProductName = MetaProduct.ITEM_TYPE, BasePrice = 1000, DepreciationRate = 0.4, Elasticity = 250 };
             OnSaleProducts = new MetaProduct[]
             {
                 new MetaProduct(){ ProductType = MetaProduct.BANNED_TYPE, ProductName = "i.1099", BasePrice = 0, DepreciationRate = 1.0, Elasticity = 0 }, // 4 Seater Makeshift Vehicle
@@ -51,7 +51,7 @@ namespace MangoShop
 				new MetaProduct(){ ProductType = MetaProduct.ITEM_TYPE, ProductName = "i.1365", BasePrice = 250, DepreciationRate = 0.4, Elasticity = 10 }, // Hell's Fury Drum
 				new MetaProduct(){ ProductType = MetaProduct.ITEM_TYPE, ProductName = "i.3502", BasePrice = 5, DepreciationRate = 0.4, Elasticity = 0.2 }, // MLRS Rocket
 				new MetaProduct(){ ProductType = MetaProduct.ITEM_TYPE, ProductName = "i.3518", BasePrice = 5, DepreciationRate = 0.4, Elasticity = 0.2 }, // Lancer Rocket
-                new MetaProduct(){ ProductType = MetaProduct.VEHICLE_TYPE, ProductName = "v.185", BasePrice = 200, DepreciationRate = 1.0, Elasticity = 100}, // Bicycle
+                new MetaProduct(){ ProductType = MetaProduct.VEHICLE_TYPE, ProductName = "v.185", BasePrice = 200, DepreciationRate = 0.4, Elasticity = 100}, // Bicycle
                 new MetaProduct(){ ProductType = MetaProduct.LOTTERY_TYPE, ProductName = "lottery", BasePrice = 100, DepreciationRate = 1.0, Elasticity = 0 }, // Lottery
                 new MetaProduct(){ ProductType = MetaProduct.HELP_TYPE, ProductName = "help", BasePrice = 0, DepreciationRate = 1.0, Elasticity = 0 }, // Help manual
             };

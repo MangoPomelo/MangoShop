@@ -78,7 +78,36 @@ namespace MangoShop.Products
 
         public override Message SoldBy(UnturnedPlayer player, byte amount)
         {
-            throw new NullReferenceException("Vehicle cannot be sold");
+
+            // Check if the player owning the vehicle
+            InteractableVehicle vehicle = player.CurrentVehicle;
+            if (vehicle == null) 
+            {
+                throw new NullReferenceException("Vehicle is not found");
+            }
+            ushort vehicleId = this._mapProductNameToVehicleId(this.GetProductName());
+            if (vehicle.isLocked && vehicle.lockedOwner != player.CSteamID)
+            {
+                throw new InvalidOperationException("Player does not own the vehicle");
+            }
+
+            // Check if the amount is 1 and vehicleId equals vehicle.id
+            if (amount != 1 || vehicleId != vehicle.id)
+            {
+                throw new InvalidOperationException("Given argument is wrong");
+            }
+
+            // Effect on the player (Remove the driving vehicle)
+            VehicleManager.askVehicleDestroy(vehicle);
+
+            // Payment
+            uint totalGain = amount * this.GetSellingPrice();
+            player.Experience += totalGain;
+
+            // Decrease scarcity
+            this.DecreaseScarcity(amount);
+
+            return new Message($"+{totalGain} xp");
         }
 
         private ushort _mapProductNameToVehicleId(string productName)
