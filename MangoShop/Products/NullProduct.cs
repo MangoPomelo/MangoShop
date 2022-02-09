@@ -25,17 +25,17 @@ namespace MangoShop.Products
 
         public override Message PurchasedBy(UnturnedPlayer player, byte amount)
         {
-            throw new NullReferenceException("Null Product");
+            throw new NullReferenceException("Null product cannot be purchased");
         }
 
         public override Message SoldBy(UnturnedPlayer player, byte amount)
         {
-            throw new NullReferenceException("Null Product");
+            throw new NullReferenceException("Null product cannot be sold");
         }
 
         public override Message CheckedBy(UnturnedPlayer player, byte amount)
         {
-            throw new NullReferenceException("Null Product");
+            throw new NullReferenceException("Null product cannot be checked");
         }
     }
 }

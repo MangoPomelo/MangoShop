@@ -9,6 +9,8 @@ namespace MangoShop.Utilities
             switch (metaProduct.GetProductType()) {
                 case MetaProduct.ITEM_TYPE:
                     return ItemProduct.CreateProduct(metaProduct);
+                case MetaProduct.HELP_TYPE:
+                    return HelpProduct.CreateProduct(metaProduct);
                 case MetaProduct.LOTTERY_TYPE:
                     return LotteryProduct.CreateProduct(metaProduct);
                 case MetaProduct.BANNED_TYPE:

@@ -5,13 +5,20 @@ using MangoShop.Utilities;
 
 namespace MangoShop.Products
 {
-    public class BannedProduct : Product
+    public class HelpProduct : Product
     {
         public static bool DoesMetaProductFit(MetaProduct metaProduct)
         {
-            // Product type must be MetaProduct.BANNED_TYPE
+            // Product type must be MetaProduct.HELP_TYPE
             string productType = metaProduct.GetProductType();
-            if (productType != MetaProduct.BANNED_TYPE)
+            if (productType != MetaProduct.HELP_TYPE)
+            {
+                return false;
+            }
+
+            // Product name must be strictly "help"
+            string productName = metaProduct.GetProductName();
+            if (productName != "help")
             {
                 return false;
             }
@@ -20,28 +27,28 @@ namespace MangoShop.Products
         }
         public static Product CreateProduct(MetaProduct metaProduct)
         {
-            if (!BannedProduct.DoesMetaProductFit(metaProduct))
+            if (!HelpProduct.DoesMetaProductFit(metaProduct))
             {
                 throw new InvalidOperationException("Wrong meta product has been provided");
             }
-            return new BannedProduct(metaProduct);
+            return new HelpProduct(metaProduct);
         }
 
-        private BannedProduct(MetaProduct meta) : base(meta) {}
+        private HelpProduct(MetaProduct meta) : base(meta) {}
 
         public override Message PurchasedBy(UnturnedPlayer player, byte amount)
         {
-            throw new NullReferenceException("Banned product cannot be purchased");
+            return new Message($"\"/buy i.121\" = \"Buy item ID 121\"");
         }
 
         public override Message SoldBy(UnturnedPlayer player, byte amount)
         {
-            throw new NullReferenceException("Banned product cannot be sold");
+            return new Message($"\"/sell i.121\" = \"Sell item ID 121\"");
         }
 
         public override Message CheckedBy(UnturnedPlayer player, byte amount)
         {
-            throw new NullReferenceException("Banned product cannot be checked");
+            return new Message($"\"/check i.121\" = \"Check price of item ID 121\"");
         }
     }
 }

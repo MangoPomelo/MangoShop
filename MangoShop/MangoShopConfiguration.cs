@@ -50,6 +50,7 @@ namespace MangoShop
 				new MetaProduct(){ ProductType = MetaProduct.ITEM_TYPE, ProductName = "i.3502", BasePrice = 5, DepreciationRate = 0.4, Elasticity = 0.2 }, // MLRS Rocket
 				new MetaProduct(){ ProductType = MetaProduct.ITEM_TYPE, ProductName = "i.3518", BasePrice = 5, DepreciationRate = 0.4, Elasticity = 0.2 }, // Lancer Rocket
                 new MetaProduct(){ ProductType = MetaProduct.LOTTERY_TYPE, ProductName = "lottery", BasePrice = 100, DepreciationRate = 1.0, Elasticity = 0 }, // Lottery
+                new MetaProduct(){ ProductType = MetaProduct.HELP_TYPE, ProductName = "help", BasePrice = 0, DepreciationRate = 1.0, Elasticity = 0 }, // Help manual
             };
         }
     }

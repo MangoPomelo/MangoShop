@@ -18,13 +18,13 @@ namespace MangoShop
             // Command
             { "CommandInvalid", "You must specify product name!" },
             // Product name matching
-            { "ProductNotFound", "Product not found!" },
+            { "ProductNotFound", "Product not found or banned!" },
             // BuyCommand
             { "PurchaseSucceed", "Your purchase was successful: {0}" },
-            { "PurchaseFailed", "You don't have enough xp or the product is banned!" },
+            { "PurchaseFailed", "You don't have enough xp!" },
             // SellCommand
             { "SellingSucceed", "Your selling was successful: {0}" },
-            { "SellingFailed", "You don't have enough items or the product cannot be sold!" },
+            { "SellingFailed", "You don't have enough items!" },
             // CheckCommand
             { "CheckSucceed", "Your query was successful: {0}" },
             { "CheckFailed", "Product cannot be evaluated!" }

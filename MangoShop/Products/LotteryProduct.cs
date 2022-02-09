@@ -80,7 +80,7 @@ namespace MangoShop.Products
 
         public override Message SoldBy(UnturnedPlayer player, byte amount)
         {
-            throw new InvalidOperationException("Lottery cannot be sold");
+            throw new NullReferenceException("Lottery cannot be sold");
         }
 
         public override Message CheckedBy(UnturnedPlayer player, byte amount)
