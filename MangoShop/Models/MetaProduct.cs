@@ -6,6 +6,7 @@ namespace MangoShop.Models
         public const string UNKNOWN_TYPE = "Unknown";
         public const string BANNED_TYPE = "Banned";
         public const string ITEM_TYPE = "Item";
+        public const string VEHICLE_TYPE = "Vehicle";
         public const string LOTTERY_TYPE = "Lottery";
         public const string HELP_TYPE = "Help";
 

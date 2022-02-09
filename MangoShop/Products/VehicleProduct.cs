@@ -8,13 +8,13 @@ using MangoShop.Utilities;
 
 namespace MangoShop.Products
 {
-    public class ItemProduct : Product
+    public class VehicleProduct : Product
     {
         public static bool DoesMetaProductFit(MetaProduct metaProduct)
         {
-            // Product type must be either MetaProduct.ITEM_TYPE or MetaProduct.UNKNOWN_TYPE
+            // Product type must be either MetaProduct.VEHICLE_TYPE or MetaProduct.UNKNOWN_TYPE
             string productType = metaProduct.GetProductType();
-            if (productType != MetaProduct.ITEM_TYPE && productType != MetaProduct.UNKNOWN_TYPE)
+            if (productType != MetaProduct.VEHICLE_TYPE && productType != MetaProduct.UNKNOWN_TYPE)
             {
                 return false;
             }
@@ -29,8 +29,8 @@ namespace MangoShop.Products
             string prefix = splitted[0];
             string suffix = splitted[1];
 
-            // Prefix must be "i"
-            if (prefix != "i")
+            // Prefix must be "v"
+            if (prefix != "v")
             {
                 return false;
             }
@@ -44,14 +44,14 @@ namespace MangoShop.Products
         }
         public static Product CreateProduct(MetaProduct metaProduct)
         {
-            if (!ItemProduct.DoesMetaProductFit(metaProduct))
+            if (!VehicleProduct.DoesMetaProductFit(metaProduct))
             {
                 throw new InvalidOperationException("Wrong meta product has been provided");
             }
-            return new ItemProduct(metaProduct);
+            return new VehicleProduct(metaProduct);
         }
 
-        private ItemProduct(MetaProduct meta) : base(meta) {}
+        private VehicleProduct(MetaProduct meta) : base(meta) {}
 
         public override Message PurchasedBy(UnturnedPlayer player, byte amount)
         {
@@ -62,8 +62,10 @@ namespace MangoShop.Products
             }
 
             // Effect on the player
-            ushort itemId = this._mapProductNameToItemId(this.GetProductName());
-            player.GiveItem(itemId, amount);
+            ushort vehicleId = this._mapProductNameToVehicleId(this.GetProductName());
+            for (int n = 0; n < amount; n++) {
+                player.GiveVehicle(vehicleId);
+            }
 
             // Payment
             player.Experience -= totalCost;
@@ -76,31 +78,10 @@ namespace MangoShop.Products
 
         public override Message SoldBy(UnturnedPlayer player, byte amount)
         {
-            // Check if the player has sufficient items
-            ushort itemId = this._mapProductNameToItemId(this.GetProductName());
-            uint totalGain = amount * this.GetSellingPrice();
-            List<InventorySearch> list = player.Inventory.search(itemId, true, true);
-            if (list.Count < amount)
-            {
-                throw new InvalidOperationException("Player does not have enough items");
-            }
-
-            // Effect on the player
-            for (int n = 0; n < amount; n++) {
-                player.Inventory.removeItem(list[0].page, player.Inventory.getIndex(list[0].page, list[0].jar.x, list[0].jar.y));
-                list.RemoveAt(0);
-            }
-
-            // Payment
-            player.Experience += totalGain;
-
-            // Decrease scarcity
-            this.DecreaseScarcity(amount);
-
-            return new Message($"+{totalGain} xp");
+            throw new NullReferenceException("Vehicle cannot be sold");
         }
 
-        private ushort _mapProductNameToItemId(string productName)
+        private ushort _mapProductNameToVehicleId(string productName)
         {
             string suffix = productName.Split('.')[1];
             return Convert.ToUInt16(suffix);

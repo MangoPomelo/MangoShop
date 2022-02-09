@@ -28,7 +28,11 @@ namespace MangoShop.Products
             }
 
             // Check if the meta fits VehicleProduct, use DefaultMetaVehicleProduct to generate VehicleProduct when it's true
-            // (WIP)
+            if (VehicleProduct.DoesMetaProductFit(metaProduct))
+            {
+                MetaProduct DefaultMetaVehicleProduct = MangoShop.Instance.Configuration.Instance.DefaultMetaVehicleProduct.SetProductName(metaProduct.GetProductName());
+                return VehicleProduct.CreateProduct(DefaultMetaVehicleProduct);
+            }
 
             // default regard it as NullProduct
             return NullProduct.CreateProduct(metaProduct);
