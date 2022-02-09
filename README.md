@@ -28,6 +28,7 @@ Buy lottery: `/buy lottery`
 
 Help of Sell: `/sell help`  
 Sell two bag of chips: `/sell i.82 2`  
+Sell a bicycle (Ride on it first): `/sell v.185`
 
 Help of price checking: `/check help`  
 Check price of a bag of chips: `/check i.82`  
