@@ -6,18 +6,18 @@ A simple Unturned economy plugin using chat line without Database. The currency 
 Use "dotnet build" command on terminal to pack the plugin into a .dll file  
 
 ## How to use the plugin
-There are 3 commands: /eval, /buy and /sell. These commands are meant to be used by everyone that has permissions for them. Remember to put the command in the permissions file.  
+There are 3 commands: /check, /buy and /sell. These commands are meant to be used by everyone that has permissions for them. Remember to put the command in the permissions file.  
 
 Usage:  
-- /eval \<name\> [amount]
+- /check \<name\> [amount]
     - The argument _name_ is necessary and argument _amount_ is optional, default is 1.
     - This will evaluate the same name product configured in xml file, prompt the price when player purchasing
 - /buy \<name\> [amount]
     - The argument _name_ is necessary and argument _amount_ is optional, default is 1.
-    - This will cost xp of the player then give the specified product according to the name. The product will be regarded as _DefaultProduct_ if there's no name matched in xml file.
+    - This will cost xp of the player then give the specified product according to the name. The product will be regarded as _DefaultMetaItemProduct_ or _DefaultMetaVehicleProduct_ if there's no name matched in xml file.
 - /sell \<name\> [amount]
     - The argument _name_ is necessary and argument _amount_ is optional, default is 1.
-    - This will give xp back to the player then remove the specified product according to the name. The product will be regarded as _DefaultProduct_ if there's no name matched in xml file.
+    - This will give xp back to the player then remove the specified product according to the name. The product will be regarded as _DefaultMetaItemProduct_ or _DefaultMetaVehicleProduct_ if there's no name matched in xml file.
 
 ## Terms
 - MetaProduct: The basic description to generate a real product
