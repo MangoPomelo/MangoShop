@@ -19,6 +19,21 @@ Usage:
     - The argument _name_ is necessary and argument _amount_ is optional, default is 1.
     - This will give xp back to the player then remove the specified product according to the name. The product will be regarded as _DefaultMetaItemProduct_ or _DefaultMetaVehicleProduct_ if there's no name matched in xml file.
 
+### Examples
+Help of Buy: `/buy help`  
+Buy a bag of chips: `/buy i.82`  
+Buy ten bags of chips: `/buy i.82 10`  
+Buy a bicycle: `/buy v.185`  
+Buy lottery: `/buy lottery`  
+
+Help of Sell: `/sell help`  
+Sell two bag of chips: `/sell i.82 2`  
+
+Help of price checking: `/check help`  
+Check price of a bag of chips: `/check i.82`  
+Check price of five axes: `/check i.16 5`  
+Check price of a bicycle: `/check v.185`  
+
 ## Terms
 - MetaProduct: The basic description to generate a real product
 - ProductType: The string for dispatcher to determine which type of product should be generated
