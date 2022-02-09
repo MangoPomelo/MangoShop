@@ -53,8 +53,8 @@ namespace MangoShop.Commands
             byte amount = argument.Amount;
             try
             {
-                product.PurchasedBy(player, amount);
-                UnturnedChat.Say(caller, MangoShop.Instance.Translate("PurchaseSucceed", $"{product.GetProductName()} x {amount}"), MangoShop.Instance.MessageColor);
+                Message msg = product.PurchasedBy(player, amount);
+                UnturnedChat.Say(caller, MangoShop.Instance.Translate("PurchaseSucceed", msg), MangoShop.Instance.MessageColor);
             }
             catch (InvalidOperationException)
             {

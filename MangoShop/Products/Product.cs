@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Rocket.Unturned.Player;
 using MangoShop.Models;
+using MangoShop.Utilities;
 
 namespace MangoShop.Products
 {
@@ -105,7 +106,8 @@ namespace MangoShop.Products
             return purchasePrice - depreciationPrice;
         }
 
-        public abstract void PurchasedBy(UnturnedPlayer player, byte amount);
-        public abstract void SoldBy(UnturnedPlayer player, byte amount);
+        public abstract Message PurchasedBy(UnturnedPlayer player, byte amount);
+        public abstract Message SoldBy(UnturnedPlayer player, byte amount);
+        public abstract Message CheckedBy(UnturnedPlayer player, byte amount);
     }
 }

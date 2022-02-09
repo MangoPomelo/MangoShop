@@ -1,6 +1,7 @@
 using System;
 using Rocket.Unturned.Player;
 using MangoShop.Models;
+using MangoShop.Utilities;
 
 namespace MangoShop.Products
 {
@@ -22,12 +23,17 @@ namespace MangoShop.Products
 
         private NullProduct(MetaProduct meta) : base(meta) {}
 
-        public override void PurchasedBy(UnturnedPlayer player, byte amount)
+        public override Message PurchasedBy(UnturnedPlayer player, byte amount)
         {
             throw new NullReferenceException("Null Product");
         }
 
-        public override void SoldBy(UnturnedPlayer player, byte amount)
+        public override Message SoldBy(UnturnedPlayer player, byte amount)
+        {
+            throw new NullReferenceException("Null Product");
+        }
+
+        public override Message CheckedBy(UnturnedPlayer player, byte amount)
         {
             throw new NullReferenceException("Null Product");
         }

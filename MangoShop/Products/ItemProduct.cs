@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using SDG.Unturned;
 using Rocket.Unturned.Player;
 using MangoShop.Models;
-using Rocket.Unturned.Chat;
+using MangoShop.Utilities;
 
 namespace MangoShop.Products
 {
@@ -53,7 +53,7 @@ namespace MangoShop.Products
 
         private ItemProduct(MetaProduct meta) : base(meta) {}
 
-        public override void PurchasedBy(UnturnedPlayer player, byte amount)
+        public override Message PurchasedBy(UnturnedPlayer player, byte amount)
         {
             // Check if the player has sufficient money
             uint totalCost = amount * this.GetPurchasePrice();
@@ -70,9 +70,11 @@ namespace MangoShop.Products
 
             // Increase scarcity
             this.IncreaseScarcity(amount);
+
+            return new Message($"{this.GetProductName()} x {amount}");
         }
 
-        public override void SoldBy(UnturnedPlayer player, byte amount)
+        public override Message SoldBy(UnturnedPlayer player, byte amount)
         {
             // Check if the player has sufficient items
             ushort itemId = this._mapProductNameToItemId(this.GetProductName());
@@ -94,12 +96,19 @@ namespace MangoShop.Products
 
             // Decrease scarcity
             this.DecreaseScarcity(amount);
+
+            return new Message($"+{totalGain} xp");
         }
 
         private ushort _mapProductNameToItemId(string productName)
         {
             string suffix = productName.Split('.')[1];
             return Convert.ToUInt16(suffix);
+        }
+
+        public override Message CheckedBy(UnturnedPlayer player, byte amount)
+        {
+            return new Message($"{amount * this.GetPurchasePrice()} xp | {amount * this.GetSellingPrice()} xp");
         }
     }
 }

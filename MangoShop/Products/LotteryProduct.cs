@@ -2,6 +2,7 @@ using System;
 using Rocket.Unturned.Player;
 using Rocket.Unturned.Chat;
 using MangoShop.Models;
+using MangoShop.Utilities;
 
 namespace MangoShop.Products
 {
@@ -37,7 +38,7 @@ namespace MangoShop.Products
         private Random _randomGenerator = new Random();
         private LotteryProduct(MetaProduct meta) : base(meta) {}
 
-        public override void PurchasedBy(UnturnedPlayer player, byte amount)
+        public override Message PurchasedBy(UnturnedPlayer player, byte amount)
         {
             // Check if the player has sufficient money
             uint totalCost = amount * this.GetPurchasePrice();
@@ -56,6 +57,8 @@ namespace MangoShop.Products
             if (prize > 0) {
                 UnturnedChat.Say($"{player.CharacterName} won {prize} xp! Congratulations!");
             }
+
+            return new Message(prize > 0 ? "YOU WIN" : "YOU LOSE");
         }
 
         private uint _generatePrice(byte amount)
@@ -75,9 +78,14 @@ namespace MangoShop.Products
             return randomNumber <= probability;
         }
 
-        public override void SoldBy(UnturnedPlayer player, byte amount)
+        public override Message SoldBy(UnturnedPlayer player, byte amount)
         {
             throw new InvalidOperationException("Lottery cannot be sold");
+        }
+
+        public override Message CheckedBy(UnturnedPlayer player, byte amount)
+        {
+            return new Message($"{amount * this.GetPurchasePrice()} xp");
         }
     }
 }

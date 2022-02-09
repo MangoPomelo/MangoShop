@@ -10,12 +10,12 @@ using MangoShop.Products;
 
 namespace MangoShop.Commands
 {
-    public class EvalCommand : IRocketCommand
+    public class CheckCommand : IRocketCommand
     {
         public AllowedCaller AllowedCaller => AllowedCaller.Player;
-        public string Name => "eval";
+        public string Name => "check";
         public string Help => "";
-        public string Syntax => "<eval>";
+        public string Syntax => "<check>";
         public List<string> Aliases => new List<string>();
         public List<string> Permissions => new List<string>();
 
@@ -53,12 +53,12 @@ namespace MangoShop.Commands
             byte amount = argument.Amount;
             try
             {
-                uint totalCost = amount * product.GetPurchasePrice();
-                UnturnedChat.Say(caller, MangoShop.Instance.Translate("EvaluationSucceed", totalCost), MangoShop.Instance.MessageColor);
+                Message msg = product.CheckedBy(player, amount);
+                UnturnedChat.Say(caller, MangoShop.Instance.Translate("CheckSucceed", msg), MangoShop.Instance.MessageColor);
             }
             catch (InvalidOperationException)
             {
-                UnturnedChat.Say(caller, MangoShop.Instance.Translate("EvaluationFailed"), MangoShop.Instance.MessageColor);
+                UnturnedChat.Say(caller, MangoShop.Instance.Translate("CheckFailed"), MangoShop.Instance.MessageColor);
                 return;
             }
             catch (NullReferenceException)

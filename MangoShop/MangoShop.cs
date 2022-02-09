@@ -20,14 +20,14 @@ namespace MangoShop
             // Product name matching
             { "ProductNotFound", "Product not found!" },
             // BuyCommand
-            { "PurchaseSucceed", "You received {0}!" },
+            { "PurchaseSucceed", "Your purchase was successful: {0}" },
             { "PurchaseFailed", "You don't have enough xp or the product is banned!" },
             // SellCommand
-            { "SellingSucceed", "You received {0} xp!" },
+            { "SellingSucceed", "Your selling was successful: {0}" },
             { "SellingFailed", "You don't have enough items or the product cannot be sold!" },
-            // EvalCommand
-            { "EvaluationSucceed", "Product costs {0} xp!" },
-            { "EvaluationFailed", "Product cannot be evaluated!" }
+            // CheckCommand
+            { "CheckSucceed", "Your query was successful: {0}" },
+            { "CheckFailed", "Product cannot be evaluated!" }
         };
 
         protected override void Load()
