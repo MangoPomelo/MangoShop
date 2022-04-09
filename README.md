@@ -1,9 +1,16 @@
 # MangoShop
 A simple Unturned economy plugin using chat line without Database. The currency of this plugin is xp of players.
 ## How to develop
+### Via vanilla
 [Download dotnetSDK](https://dotnet.microsoft.com/en-us/download) to enable "dotnet" command on terminal  
 [Download .NET Framework 4.6.1](https://www.microsoft.com/en-us/download/details.aspx?id=49978) then install to compile the plugin into correct version which fits Unturned Server  
-Use "dotnet build" command on terminal to pack the plugin into a .dll file  
+Use "dotnet build" command on terminal or "Build Plugin (via Vanilla)" in vscode debug to pack the plugin into a .dll file  
+
+### Via DockerDev
+Install dependencies in the [documentation](https://code.visualstudio.com/docs/remote/containers)  
+Build container by given configuration and run the container  
+Use "xbuild" command on terminal or "Build Plugin (via DockerDev)" in vscode debug to pack the plugin into a .dll file  
+
 
 ## How to use the plugin
 There are 3 commands: /check, /buy and /sell. These commands are meant to be used by everyone that has permissions for them. Remember to put the command in the permissions file.  
